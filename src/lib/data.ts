@@ -1,5 +1,5 @@
-// Site content, taken from the IBF 2026 "National Champion" deck.
-// Values in [brackets] are not in the deck yet; in production this file is replaced by CMS queries.
+// Site content, taken word for word from the IBF 2026 "National Champion" deck.
+// Values in [brackets] are not in the deck; in production this file is replaced by CMS queries.
 
 export const EVENT = {
   edition: "IBF 2026",
@@ -11,7 +11,7 @@ export const EVENT = {
   venue: "MNC Conference Hall",
   city: "Jakarta",
   address: "[Alamat MNC Conference Hall, Jakarta]",
-  // Opening keynote; the deck gives no start time before the 13.00 introduction.
+  // The deck gives no time for the keynote; 13.00 is the first timed slot.
   startsAt: "2026-12-09T13:00:00+07:00",
 };
 
@@ -30,33 +30,190 @@ export const whatsappUrl = (text?: string) =>
   `https://api.whatsapp.com/send?phone=${CONTACT.whatsapp}` + (text ? `&text=${encodeURIComponent(text)}` : "");
 
 export const NAV = [
+  { href: "/arsip", label: "IBF at Glance" },
   { href: "/awarding", label: "Awarding" },
-  { href: "/konferensi", label: "Konferensi" },
-  { href: "/buku", label: "Buku" },
-  { href: "/arsip", label: "Arsip" },
+  { href: "/konferensi", label: "Conference" },
+  { href: "/buku", label: "Book" },
   { href: "/sponsor", label: "Partner" },
 ];
 
+// ---------------------------------------------------------------- IBF at glance
+
+export const IBF_ABOUT = [
+  "Indonesia Brand Forum diselenggarakan pertama kali pada tahun 2013 sebagai bentuk kepedulian pada pengembangan brand-brand Indonesia.",
+  "Event tahunan ini mengusung konsep yang unik karena menggabungkan conference, riset dan penulisan buku, dan awarding.",
+  "Setiap tahun IBF menghadirkan topik-topik kajian yang baru dan inovatif berdasarkan riset dan kajian mendalam mengenai strategi brand dan praktek terbaik branding di Indonesia.",
+];
+
+export const GLANCE_PHOTOS = [
+  { venue: "JCC", year: "2013" },
+  { venue: "Balai Kartini", year: "2015" },
+  { venue: "Hotel Grand Hyatt", year: "2016" },
+  { venue: "Pos Bloc", year: "2021" },
+  { venue: "Balairung Kemenparekraf", year: "2022" },
+  { venue: "Telkom Landmark Tower", year: "2024" },
+];
+
+export type Edition = { year: string; book: string; title: string; quote?: string; text?: string };
+
+export const EDITIONS: Edition[] = [
+  {
+    year: "2013",
+    book: "Beat the Giant",
+    title: "Kebangkitan Nasional Kedua, Kebangkitan Merek Indonesia",
+    quote: "Beat the Giant: “Strategi Merek Indonesia Menandingi Merek Global dan Menjadi Tuan Rumah di Negeri Sendiri” (2013)",
+    text: "Strategi merek lokal/nasional dalam menghadapi merek global dan menjadi tuan rumah di negeri sendiri.",
+  },
+  {
+    year: "2015",
+    book: "Global Chaser",
+    title: "Merek Indonesia Perkasa di Pentas Dunia",
+    quote: "Global Chaser: “Merek Indonesia Perkasa di Pentas Dunia” (2015)",
+    text: "Strategi perusahaan/merek Indonesia yang telah sukses menembus dan membangun daya saing di pasar global.",
+  },
+  {
+    year: "2016",
+    book: "2G Challenges",
+    title: "Branding Family Business for the Nation, Lestari dari Generasi ke Generasi",
+    quote: "2G Challenges, “Bagaimana Pemimpin Generasi Kedua Perusahaan Keluarga Mencapai Sukses Berkesinambungan” (2016)",
+    text: "Buku pertama di Indonesia yang mengungkap tantangan para pemimpin generasi kedua perusahaan keluarga dengan mengambil kasus perusahaan-perusahaan keluarga papan atas di Indonesia.",
+  },
+  {
+    year: "2021",
+    book: "The Rise of Cool+Agile Brands",
+    title: "The Rise of Cool+Agile Brands",
+    quote: "The Rise of Cool+Agile Brands, “Bagaimana merek Indonesia berhasil melewati disrupsi digital, milenial dan pandemi” (2021)",
+    text: "Buku ini membahas generasi baru brand di Indonesia yang piawai merespons perubahan dan mumpuni melakukan transformasi digital.",
+  },
+  {
+    year: "2022",
+    book: "Brand Collab Advantage",
+    title: "Brand Collab Advantage",
+    quote: "“Strategi serta best practice dari beberapa kolaborasi perusahaan di Indonesia yang memenuhi syarat sukses kolaborasi antar brand” (2022)",
+  },
+  {
+    year: "2024",
+    book: "Elephant Learns Flamenco",
+    title: "Elephant Learns Flamenco",
+    text: "Elephant Learns Flamenco, menggambarkan perjalanan transformasi BUMN selama lima tahun terakhir di bawah kepemimpinan Erick Thohir.",
+  },
+];
+
+// ---------------------------------------------------------------- Programs
 
 export const PROGRAMS = [
   {
-    n: "01",
+    n: "1",
     name: "Awarding",
     href: "/awarding",
-    text: "Penghargaan untuk brand lokal terpilih yang telah dikurasi dan memenuhi kriteria sebagai National Champion di pasar Indonesia.",
+    tone: "coral",
+    text: "IBF 2026 akan memberikan penghargaan kepada brand lokal terpilih yang telah dikurasi dan memenuhi kriteria sebagai National Champion di pasar Indonesia.",
   },
   {
-    n: "02",
+    n: "2",
     name: "Conference",
     href: "/konferensi",
-    text: "Konferensi bertema National Champion: Brand-brand yang Menjadi Tuan Rumah di Negeri Sendiri, menghadirkan para industry leaders.",
+    tone: "orange",
+    text: "IBF 2026 akan menghadirkan conferensi dengan tema “National Champion: Brand-brand yang Menjadi Tuan Rumah di Negeri Sendiri” dengan menghadirkan para industry leaders.",
   },
   {
-    n: "03",
+    n: "3",
     name: "Book",
     href: "/buku",
-    text: "Peluncuran buku National Champion yang mengulas perjalanan brand lokal membangun keunggulan kompetitif untuk memimpin pasar di negeri sendiri.",
+    tone: "leaf",
+    text: "IBF 2026 akan meluncurkan buku “National Champion” yang mengulas perjalanan brand lokal membangun keunggulan kompetitif untuk menjadi pemimpin pasar di negeri sendiri.",
   },
+] as const;
+
+// ---------------------------------------------------------------- Awarding
+
+export const AWARD_BACKGROUND = [
+  "Pada tahun 2013, Indonesia Brand Forum memperkenalkan konsep Beat the Giant, yaitu strategi brand lokal untuk menandingi merek global dan menjadi tuan rumah di negeri sendiri. Lebih dari satu dekade kemudian, semakin banyak brand Indonesia yang berhasil memenangkan persaingan dan menjadi pemimpin di pasar domestik.",
+  "Keberhasilan tersebut tidak terlepas dari kemampuan brand lokal menghadapi triple disruption, yaitu disrupsi kelas menengah, boikot merek global, dan digitalisasi. Untuk menjadi National Champion, brand Indonesia perlu mengoptimalkan keunggulan lokal sekaligus membangun kapabilitas bisnis berstandar global agar mampu menciptakan daya saing yang berkelanjutan.",
+  "Berangkat dari semangat memperkuat daya saing brand Indonesia, Inventure bersama iNews Media Group menyelenggarakan National Champion Brand Award 2026. Penghargaan ini diberikan kepada brand-brand lokal terpilih melalui proses kurasi dan penilaian atas strategi, inovasi, serta keberhasilannya dalam memenangkan pasar dan menjadi tuan rumah di negeri sendiri.",
+];
+
+export const CRITERIA_INTRO =
+  "Memberikan apresiasi dan penghargaan kepada brand-brand lokal Indonesia yang telah dikurasi dan memenuhi kriteria sebagai";
+
+export type Quadrant = { name: string; tone: "mint" | "coral" | "sun" | "white"; tips: { n: string; text: string }[] };
+
+// Beat the Giant 2.0: x = capability to catch up with the global frontier, y = ownership of local advantages.
+export const QUADRANTS: { topLeft: Quadrant; topRight: Quadrant; bottomLeft: Quadrant; bottomRight: Quadrant } = {
+  topLeft: { name: "Local Challenger", tone: "mint", tips: [{ n: "5", text: "Focus on your unique local advantages. Be a playmaker of your owned industry." }, { n: "6", text: "Benchmark to global practices." }] },
+  topRight: { name: "National Champion", tone: "coral", tips: [{ n: "4", text: "Global context is your strength. Local content is your real weapon to win." }] },
+  bottomLeft: { name: "Smart Flanker", tone: "sun", tips: [{ n: "1", text: "Be an unbeatable niche player." }] },
+  bottomRight: { name: "Global Chaser", tone: "white", tips: [{ n: "2", text: "Going regional/global. Leverage your transferable assets." }, { n: "3", text: "Be a smart follower." }] },
+};
+
+export const CRITERIA = [
+  { name: "Smart Flanker", tone: "sun", text: "Brand lokal yang menghindari persaingan langsung dengan market leader dengan memanfaatkan celah pasar, baik melalui produk, segmen, kanal distribusi, maupun komunikasi untuk memenangkan pasar spesifik." },
+  { name: "Local Challenger", tone: "mint", text: "Brand lokal yang menantang dominasi market leader dengan mengoptimalkan keunggulan lokal sebagai diferensiasi untuk merebut preferensi konsumen dan meningkatkan pangsa pasar." },
+  { name: "National Champion", tone: "coral", text: "Brand lokal yang berhasil memimpin pasar dengan memadukan keunggulan lokal dan kapabilitas bisnis kelas dunia untuk menandingi atau mengungguli pemain global." },
+] as const;
+
+// `name` is the label on THE CATEGORY slides, `award` the label on THE WINNER slides.
+export type Category = { name: string; award: string; definition: string; winners: [string, string] };
+export type CategoryGroup = { key: string; letter: string; name: string; items: Category[] };
+
+export const CATEGORY_GROUPS: CategoryGroup[] = [
+  {
+    key: "flanker",
+    letter: "A",
+    name: "Smart Flanker",
+    items: [
+      { name: "Smart Product Flanker", award: "Product Innovation Flanker", winners: ["Mie Gacoan", "Bobobox"], definition: "Brand yang menciptakan diferensiasi produk untuk memenuhi kebutuhan spesifik yang belum dilayani optimal oleh market leader, melalui inovasi yang cepat dan menghasilkan pertumbuhan di ceruk pasar." },
+      { name: "Smart Market Flanker", award: "Market Innovation Flanker", winners: ["DANA", "Mykonos"], definition: "Brand yang jeli mengidentifikasi segmen pasar yang kurang terlayani, menawarkan proposisi nilai yang relevan, dan berhasil membangun penetrasi serta loyalitas konsumen di segmen tersebut." },
+      { name: "Smart Channel Flanker", award: "Channel Innovation Flanker", winners: ["Jago", "Roti’O"], definition: "Brand yang memanfaatkan kombinasi kanal distribusi alternatif secara kreatif, terkoordinasi, dan agresif untuk menjangkau konsumen yang belum dilayani optimal oleh market leader." },
+      { name: "Smart BrandComm Flanker", award: "BrandComm Flanker", winners: ["Buttonscarves", "Tuku"], definition: "Brand yang membangun identitas dan komunikasi khas melalui pesan yang relevan serta pemilihan media yang cerdas untuk memenangkan perhatian dan preferensi audiens spesifik." },
+    ],
+  },
+  {
+    key: "challenger",
+    letter: "B",
+    name: "Local Challenger",
+    items: [
+      { name: "Local Product Challenger", award: "Product Innovation Challenger", winners: ["Solaria", "Fore"], definition: "Brand yang mengembangkan produk unggul berdasarkan kebutuhan dan karakteristik konsumen Indonesia untuk menantang market leader serta merebut penjualan dan pangsa pasar." },
+      { name: "Local Market Challenger", award: "Market Innovation Challenger", winners: ["Bukalapak", "Kahf"], definition: "Brand yang memanfaatkan pemahaman pasar lokal untuk menyasar segmen potensial, menawarkan proposisi nilai yang lebih relevan, dan merebut preferensi serta pangsa pasar dari market leader." },
+      { name: "Local Channel Challenger", award: "Channel Innovation Challenger", winners: ["Kopi Kenangan", "Erafone"], definition: "Brand yang membangun jaringan distribusi sesuai karakteristik geografis dan perilaku belanja konsumen Indonesia untuk memperluas jangkauan dan meningkatkan penetrasi pasar." },
+      { name: "Local BrandComm Challenger", award: "BrandComm Challenger", winners: ["Marjan", "Sido Muncul"], definition: "Brand yang mengangkat identitas, budaya, dan aspirasi lokal melalui komunikasi yang autentik untuk memperkuat ekuitas merek dan merebut preferensi konsumen dari market leader." },
+    ],
+  },
+  {
+    key: "champion",
+    letter: "C",
+    name: "National Champion",
+    items: [
+      { name: "Product Innovation Champion", award: "Product Innovation Champion", winners: ["Kawan Lama", "Cimory"], definition: "Brand yang secara berkelanjutan menghasilkan inovasi produk yang unggul, relevan, dan sulit ditiru dengan kualitas serta kinerja yang mampu menandingi produk pemain global." },
+      { name: "Market Innovation Champion", award: "Market Innovation Champion", winners: ["Unifam", "MD Entertainment"], definition: "Brand yang berhasil menciptakan pasar atau segmen baru melalui inovasi proposisi nilai dan model bisnis, serta membangun pertumbuhan dan kepemimpinan pasar yang berkelanjutan." },
+      { name: "Channel Innovation Champion", award: "Channel Innovation Champion", winners: ["BRILink Agen", "Point Coffee"], definition: "Brand yang membangun inovasi jaringan distribusi melalui integrasi kanal, mitra, dan platform untuk menciptakan jangkauan luas, efisiensi, dan kepemimpinan pasar." },
+      { name: "BrandComm Champion", award: "BrandComm Champion", winners: ["Mayora", "Kapal Api"], definition: "Brand yang membangun identitas kuat dan komunikasi terintegrasi untuk meningkatkan ekuitas merek, loyalitas konsumen, serta kepemimpinan pasar dalam menghadapi pemain global." },
+      { name: "Ecosystem Builder Champion", award: "Ecosystem Builder Champion", winners: ["GoTo", "Blibli"], definition: "Brand yang berhasil membangun dan mengelola ekosistem bisnis melalui sinergi mitra, sumber daya, dan teknologi untuk menciptakan nilai bersama serta keunggulan kompetitif." },
+      { name: "Tech Leader Champion", award: "Tech Leader Champion", winners: ["GoTo", "BCA"], definition: "Brand yang memanfaatkan teknologi untuk meningkatkan efisiensi, pengalaman pelanggan, dan inovasi model bisnis dengan kinerja yang mampu memenuhi standar global." },
+      { name: "Talent Champion", award: "Talent Champion", winners: ["ParagonCorp", "Kopra by Mandiri"], definition: "Brand yang unggul dalam menarik, mengembangkan, dan mempertahankan talenta berkualitas untuk meningkatkan produktivitas, inovasi, dan daya saing organisasi berstandar global." },
+      { name: "Culture Champion", award: "Culture Champion", winners: ["Bluebird Group", "Nutrifood"], definition: "Brand yang berhasil merumuskan, menginternalisasi, dan mengadaptasi nilai perusahaan menjadi budaya kerja yang mendorong kolaborasi, inovasi, dan kinerja organisasi berkelanjutan." },
+    ],
+  },
+];
+
+export type Judge = { name: string; points: string[] };
+
+export const JUDGES: Judge[] = [
+  { name: "Yuswohady", points: ["Managing Partner, Inventure", "Founding Chairman Indonesia Brand Forum (IBF) and Indonesia Industry Outlook (IIO)", "Author with 60+ Books in Business-Marketing Field"] },
+  { name: "Dyah Hasto Palupi", points: ["Senior Editor at SWA Business Magazine.", "Author of approximately 30 books on Marketing Communications, Biographies, and Corporate Publications", "Partner at Inventure"] },
+  { name: "Tanty Dwi Permassanty", points: ["Business Dev and Account Director Dwisapta Pratama (1995 - 2013)", "Lecturer Surya University (2013 - 2025)", "Business Partner Inventure (2024 - Present)"] },
+  { name: "Budiman Goh", points: ["Executive, Garudafood & Enesis Group", "Former President, Aruna (2021)", "COO, Indonesia Prima"] },
+  { name: "Budi Rizanto Binol", points: ["Client Service Director, Ogilvy", "Managing Partner, Kinanti Consultant (2019 – Present)", "Managing Partner, Dadakaranya (2024 – Present)"] },
+  { name: "Siddharta FM", points: ["Managing Partner, Trade Marketing Indonesia (2009 – Present)", "Director, CORE - Center for Organizational Excellence (2012 – Present)", "President Commissioner, Teletrans (2026 – Present)"] },
+  { name: "Meidy Ferdiansyah", points: ["VP SME Business Project, Bank Syariah Indonesia (2023 – 2024)", "Chief Marketing Officer, Asia Coach Indonesia (2024 – 2025)", "Commissioner, Bank Syariah Indonesia (Appointed 2025)"] },
+  { name: "Farid Fatahillah", points: ["Chief Knowledge Officer, Inventure (2024 – Present)", "Co-Author of 20+ books of business and marketing (2014 – Present)"] },
+  { name: "Bagus Zidni Ilman Nafi", points: ["Researcher, Lingkaran Survei Indonesia (2018 - 2021)", "Senior Business Analyst, Inventure Indonesia (2021 - 2024)", "Head of Media & Event, Inventure Indonesia (2024 - Present)"] },
+  { name: "Gilang Brillian", points: ["Lecture & Mentor MBA ITB (Postgraduate) (2020 – 2025)", "Senior Consultant, Inventure Indonesia (2019 – Present)", "Brand Consultant for 30+ Multinational Company in Telco, Banking and Retail"] },
+  { name: "Aiman Witjaksono", points: ["Editor-in-Chief, iNews TV & iNews.id", "Senior Journalist and Prominent Television Host", "Expertise in Law, Politics, and Current Affairs"] },
+  { name: "Masirom", points: ["Editor-in-Chief, IDX Channel & Okezone.com", "Senior Journalist Specializing in Economics and Business", "Expertise in Business and Capital Markets"] },
+  { name: "Pung Purwanto", points: ["Editor-in-Chief, Sindonews.com & Sindonews TV", "Senior Journalist Specializing in Political Economy and Geopolitics", "Expertise in Politics, Law, and International Affairs"] },
+  { name: "M. Budi Santosa", points: ["Deputy Editor-in-Chief, IDX Channel", "Senior Journalist Specializing in Economic Affairs", "Chairman, FORKEM (Forum of Economic Journalists)", "Experience in Managing Digital Programs within IDX Cluster"] },
+  { name: "Andry Susanto", points: ["Deputy Editor-in-Chief, Sindonews", "Senior Journalist", "Expertise in Communications, Business, and Digital Media"] },
 ];
 
 // ---------------------------------------------------------------- Conference
@@ -68,23 +225,18 @@ export const KEYNOTES: Person[] = [
   { name: "Muhammad Sarmuji", role: "Menteri Perindustrian RI" },
 ];
 
-export type Slot = {
-  time: string;
-  kind: string;
-  title: string;
-  subtitle?: string;
-  speakers?: Person[];
-};
+export const OPENING = [
+  { icon: "podium", time: "", title: "Keynote Speech:", speakers: KEYNOTES },
+  { icon: "bulb", time: "13.00 – 13.30", title: "Introduction National Champion:", subtitle: EVENT.subtitle },
+  { icon: "book", time: "13.35 – 13.55", title: "Book Launching “National Champion”" },
+  { icon: "trophy", time: "14.00 – 15.00", title: "National Champion Brand Award 2026" },
+] as const;
 
-export const RUNDOWN: Slot[] = [
-  { time: "Opening", kind: "Keynote Speech", title: "Keynote Speech", speakers: KEYNOTES },
-  { time: "13.00 – 13.30", kind: "Opening", title: "Introduction National Champion", subtitle: EVENT.subtitle },
-  { time: "13.35 – 13.55", kind: "Opening", title: "Book Launching “National Champion”" },
-  { time: "14.00 – 15.00", kind: "Awarding", title: "National Champion Brand Award 2026" },
+export const SESSIONS = [
   {
+    label: "Session 1",
     time: "15.05 – 16.20",
-    kind: "Session 1",
-    title: "Beat the Giants",
+    title: "Beat the Giants:",
     subtitle: "How Local Brands Challenge Market Leaders",
     speakers: [
       { name: "Indra Gunawan", role: "CEO Bobobox" },
@@ -95,9 +247,9 @@ export const RUNDOWN: Slot[] = [
     ],
   },
   {
+    label: "Session 2",
     time: "16.25 – 17.25",
-    kind: "Session 2",
-    title: "Owning the Home Turf",
+    title: "Owning the Home Turf:",
     subtitle: "How National Champions Lead Indonesia’s Market",
     speakers: [
       { name: "Steven Wijaya", role: "CEO Unifam" },
@@ -109,107 +261,6 @@ export const RUNDOWN: Slot[] = [
   },
 ];
 
-export const SPEAKERS: (Person & { slot: string })[] = RUNDOWN.flatMap((s) =>
-  (s.speakers ?? []).map((p) => ({ ...p, slot: s.kind })),
-);
-
-// ---------------------------------------------------------------- Awarding
-
-export const AWARD_BACKGROUND = [
-  "Pada tahun 2013, Indonesia Brand Forum memperkenalkan konsep Beat the Giant, yaitu strategi brand lokal untuk menandingi merek global dan menjadi tuan rumah di negeri sendiri. Lebih dari satu dekade kemudian, semakin banyak brand Indonesia yang berhasil memenangkan persaingan dan menjadi pemimpin di pasar domestik.",
-  "Keberhasilan tersebut tidak terlepas dari kemampuan brand lokal menghadapi triple disruption, yaitu disrupsi kelas menengah, boikot merek global, dan digitalisasi. Untuk menjadi National Champion, brand Indonesia perlu mengoptimalkan keunggulan lokal sekaligus membangun kapabilitas bisnis berstandar global agar mampu menciptakan daya saing yang berkelanjutan.",
-  "Berangkat dari semangat memperkuat daya saing brand Indonesia, Inventure bersama iNews Media Group menyelenggarakan National Champion Brand Award 2026. Penghargaan ini diberikan kepada brand-brand lokal terpilih melalui proses kurasi dan penilaian atas strategi, inovasi, serta keberhasilannya dalam memenangkan pasar dan menjadi tuan rumah di negeri sendiri.",
-];
-
-export type Quadrant = {
-  name: string;
-  tone: "mint" | "red" | "yellow" | "white";
-  tips: { n: string; text: string }[];
-};
-
-// Beat the Giant 2.0: x = capability to catch up with the global frontier, y = ownership of local advantages.
-export const BEAT_THE_GIANT = {
-  xAxis: "Capability to Catch-up Global Frontier",
-  xNote: "Financial, Technology, Management, etc.",
-  yAxis: "Ownership of Local Advantages",
-  topLeft: { name: "Local Challenger", tone: "mint", tips: [{ n: "#5", text: "Focus on your unique local advantages. Be a playmaker of your owned industry." }, { n: "#6", text: "Benchmark to global practices." }] },
-  topRight: { name: "National Champion", tone: "red", tips: [{ n: "#4", text: "Global context is your strength. Local content is your real weapon to win." }] },
-  bottomLeft: { name: "Smart Flanker", tone: "yellow", tips: [{ n: "#1", text: "Be an unbeatable niche player." }] },
-  bottomRight: { name: "Global Chaser", tone: "white", tips: [{ n: "#2", text: "Going regional/global. Leverage your transferable assets." }, { n: "#3", text: "Be a smart follower." }] },
-} satisfies Record<string, unknown>;
-
-export const CRITERIA = [
-  { name: "Smart Flanker", tone: "yellow", text: "Brand lokal yang menghindari persaingan langsung dengan market leader dengan memanfaatkan celah pasar, baik melalui produk, segmen, kanal distribusi, maupun komunikasi untuk memenangkan pasar spesifik." },
-  { name: "Local Challenger", tone: "mint", text: "Brand lokal yang menantang dominasi market leader dengan mengoptimalkan keunggulan lokal sebagai diferensiasi untuk merebut preferensi konsumen dan meningkatkan pangsa pasar." },
-  { name: "National Champion", tone: "red", text: "Brand lokal yang berhasil memimpin pasar dengan memadukan keunggulan lokal dan kapabilitas bisnis kelas dunia untuk menandingi atau mengungguli pemain global." },
-] as const;
-
-export type Category = { name: string; definition: string; winners: [string, string] };
-export type CategoryGroup = { key: string; letter: string; name: string; tone: "yellow" | "mint" | "red"; items: Category[] };
-
-export const CATEGORY_GROUPS: CategoryGroup[] = [
-  {
-    key: "flanker",
-    letter: "A",
-    name: "Smart Flanker",
-    tone: "yellow",
-    items: [
-      { name: "Product Innovation Flanker", winners: ["Mie Gacoan", "Bobobox"], definition: "Brand yang menciptakan diferensiasi produk untuk memenuhi kebutuhan spesifik yang belum dilayani optimal oleh market leader, melalui inovasi yang cepat dan menghasilkan pertumbuhan di ceruk pasar." },
-      { name: "Market Innovation Flanker", winners: ["DANA", "Mykonos"], definition: "Brand yang jeli mengidentifikasi segmen pasar yang kurang terlayani, menawarkan proposisi nilai yang relevan, dan berhasil membangun penetrasi serta loyalitas konsumen di segmen tersebut." },
-      { name: "Channel Innovation Flanker", winners: ["Jago", "Roti’O"], definition: "Brand yang memanfaatkan kombinasi kanal distribusi alternatif secara kreatif, terkoordinasi, dan agresif untuk menjangkau konsumen yang belum dilayani optimal oleh market leader." },
-      { name: "BrandComm Flanker", winners: ["Buttonscarves", "Tuku"], definition: "Brand yang membangun identitas dan komunikasi khas melalui pesan yang relevan serta pemilihan media yang cerdas untuk memenangkan perhatian dan preferensi audiens spesifik." },
-    ],
-  },
-  {
-    key: "challenger",
-    letter: "B",
-    name: "Local Challenger",
-    tone: "mint",
-    items: [
-      { name: "Product Innovation Challenger", winners: ["Solaria", "Fore"], definition: "Brand yang mengembangkan produk unggul berdasarkan kebutuhan dan karakteristik konsumen Indonesia untuk menantang market leader serta merebut penjualan dan pangsa pasar." },
-      { name: "Market Innovation Challenger", winners: ["Bukalapak", "Kahf"], definition: "Brand yang memanfaatkan pemahaman pasar lokal untuk menyasar segmen potensial, menawarkan proposisi nilai yang lebih relevan, dan merebut preferensi serta pangsa pasar dari market leader." },
-      { name: "Channel Innovation Challenger", winners: ["Kopi Kenangan", "Erafone"], definition: "Brand yang membangun jaringan distribusi sesuai karakteristik geografis dan perilaku belanja konsumen Indonesia untuk memperluas jangkauan dan meningkatkan penetrasi pasar." },
-      { name: "BrandComm Challenger", winners: ["Marjan", "Sido Muncul"], definition: "Brand yang mengangkat identitas, budaya, dan aspirasi lokal melalui komunikasi yang autentik untuk memperkuat ekuitas merek dan merebut preferensi konsumen dari market leader." },
-    ],
-  },
-  {
-    key: "champion",
-    letter: "C",
-    name: "National Champion",
-    tone: "red",
-    items: [
-      { name: "Product Innovation Champion", winners: ["Kawan Lama", "Cimory"], definition: "Brand yang secara berkelanjutan menghasilkan inovasi produk yang unggul, relevan, dan sulit ditiru dengan kualitas serta kinerja yang mampu menandingi produk pemain global." },
-      { name: "Market Innovation Champion", winners: ["Unifam", "MD Entertainment"], definition: "Brand yang berhasil menciptakan pasar atau segmen baru melalui inovasi proposisi nilai dan model bisnis, serta membangun pertumbuhan dan kepemimpinan pasar yang berkelanjutan." },
-      { name: "Channel Innovation Champion", winners: ["BRILink Agen", "Point Coffee"], definition: "Brand yang membangun inovasi jaringan distribusi melalui integrasi kanal, mitra, dan platform untuk menciptakan jangkauan luas, efisiensi, dan kepemimpinan pasar." },
-      { name: "BrandComm Champion", winners: ["Mayora", "Kapal Api"], definition: "Brand yang membangun identitas kuat dan komunikasi terintegrasi untuk meningkatkan ekuitas merek, loyalitas konsumen, serta kepemimpinan pasar dalam menghadapi pemain global." },
-      { name: "Ecosystem Builder Champion", winners: ["GoTo", "Blibli"], definition: "Brand yang berhasil membangun dan mengelola ekosistem bisnis melalui sinergi mitra, sumber daya, dan teknologi untuk menciptakan nilai bersama serta keunggulan kompetitif." },
-      { name: "Tech Leader Champion", winners: ["GoTo", "BCA"], definition: "Brand yang memanfaatkan teknologi untuk meningkatkan efisiensi, pengalaman pelanggan, dan inovasi model bisnis dengan kinerja yang mampu memenuhi standar global." },
-      { name: "Talent Champion", winners: ["ParagonCorp", "Kopra by Mandiri"], definition: "Brand yang unggul dalam menarik, mengembangkan, dan mempertahankan talenta berkualitas untuk meningkatkan produktivitas, inovasi, dan daya saing organisasi berstandar global." },
-      { name: "Culture Champion", winners: ["Bluebird Group", "Nutrifood"], definition: "Brand yang berhasil merumuskan, menginternalisasi, dan mengadaptasi nilai perusahaan menjadi budaya kerja yang mendorong kolaborasi, inovasi, dan kinerja organisasi berkelanjutan." },
-    ],
-  },
-];
-
-export type Judge = { name: string; points: string[] };
-
-export const JUDGES: Judge[] = [
-  { name: "Yuswohady", points: ["Managing Partner, Inventure", "Founding Chairman Indonesia Brand Forum (IBF) dan Indonesia Industry Outlook (IIO)", "Penulis 60+ buku bisnis-marketing"] },
-  { name: "Dyah Hasto Palupi", points: ["Senior Editor, SWA Business Magazine", "Penulis sekitar 30 buku marketing communications, biografi, dan corporate publications", "Partner, Inventure"] },
-  { name: "Tanty Dwi Permassanty", points: ["Business Dev and Account Director, Dwisapta Pratama (1995 – 2013)", "Dosen Surya University (2013 – 2025)", "Business Partner, Inventure (2024 – sekarang)"] },
-  { name: "Budiman Goh", points: ["Executive, Garudafood & Enesis Group", "Former President, Aruna (2021)", "COO, Indonesia Prima"] },
-  { name: "Budi Rizanto Binol", points: ["Client Service Director, Ogilvy", "Managing Partner, Kinanti Consultant (2019 – sekarang)", "Managing Partner, Dadakaranya (2024 – sekarang)"] },
-  { name: "Siddharta FM", points: ["Managing Partner, Trade Marketing Indonesia (2009 – sekarang)", "Director, CORE – Center for Organizational Excellence (2012 – sekarang)", "President Commissioner, Teletrans (2026 – sekarang)"] },
-  { name: "Meidy Ferdiansyah", points: ["VP SME Business Project, Bank Syariah Indonesia (2023 – 2024)", "Chief Marketing Officer, Asia Coach Indonesia (2024 – 2025)", "Komisaris, Bank Syariah Indonesia (2025)"] },
-  { name: "Farid Fatahillah", points: ["Chief Knowledge Officer, Inventure (2024 – sekarang)", "Co-author 20+ buku bisnis dan marketing (2014 – sekarang)"] },
-  { name: "Bagus Zidni Ilman Nafi", points: ["Researcher, Lingkaran Survei Indonesia (2018 – 2021)", "Senior Business Analyst, Inventure (2021 – 2024)", "Head of Media & Event, Inventure (2024 – sekarang)"] },
-  { name: "Gilang Brillian", points: ["Lecturer & Mentor MBA ITB (2020 – 2025)", "Senior Consultant, Inventure (2019 – sekarang)", "Brand consultant untuk 30+ perusahaan multinasional di telco, banking, dan retail"] },
-  { name: "Aiman Witjaksono", points: ["Editor-in-Chief, iNews TV & iNews.id", "Senior journalist dan television host", "Keahlian hukum, politik, dan isu terkini"] },
-  { name: "Masirom", points: ["Editor-in-Chief, IDX Channel & Okezone.com", "Senior journalist ekonomi dan bisnis", "Keahlian bisnis dan pasar modal"] },
-  { name: "Pung Purwanto", points: ["Editor-in-Chief, Sindonews.com & Sindonews TV", "Senior journalist ekonomi politik dan geopolitik", "Keahlian politik, hukum, dan hubungan internasional"] },
-  { name: "M. Budi Santosa", points: ["Deputy Editor-in-Chief, IDX Channel", "Ketua FORKEM (Forum Wartawan Ekonomi)", "Pengalaman mengelola program digital di IDX Cluster"] },
-  { name: "Andry Susanto", points: ["Deputy Editor-in-Chief, Sindonews", "Senior journalist", "Keahlian komunikasi, bisnis, dan media digital"] },
-];
-
 // ---------------------------------------------------------------- Book
 
 export const BOOK = {
@@ -219,12 +270,12 @@ export const BOOK = {
   background: [
     "Pada tahun 2013, kami menerbitkan buku Beat the Giant, yang mengulas strategi brand Indonesia dalam menandingi merek global dan menjadi tuan rumah di negeri sendiri. Kami mengelompokkan brand lokal ke dalam empat kategori: Smart Flanker, Local Challenger, National Champion, dan Global Chaser.",
     "Dua belas tahun kemudian, lanskap persaingan berubah drastis akibat digitalisasi, melemahnya daya beli kelas menengah, dan meningkatnya preferensi terhadap brand lokal. Momentum ini membuka peluang bagi brand Indonesia untuk memperkuat daya saing, membangun loyalitas konsumen, dan bahkan berekspansi ke pasar global.",
-    "Melalui buku National Champion, kami memotret strategi dan perjalanan brand lokal yang berhasil membangun keunggulan kompetitif dan menjadi pemimpin pasar domestik. Buku ini sekaligus menjadi refleksi kebangkitan brand Indonesia dalam memenangkan persaingan di negeri sendiri.",
+    "Melalui buku National Champion: Brand-brand Indonesia Menjadi Tuan Rumah di Negeri Sendiri, kami memotret strategi dan perjalanan brand lokal yang berhasil membangun keunggulan kompetitif dan menjadi pemimpin pasar domestik. Buku ini sekaligus menjadi refleksi kebangkitan brand Indonesia dalam memenangkan persaingan di negeri sendiri.",
   ],
   objectives: [
     "Mendokumentasikan perjalanan merek-merek Indonesia yang sukses dalam transformasinya menjadi national champion.",
-    "Mengetahui strategi dan inovasi di balik merek-merek Indonesia yang sukses menyandang gelar national champion.",
-    "Merumuskan lesson learned dari perjalanan bisnis merek-merek Indonesia hingga menjadi national champion.",
+    "Mengetahui strategi dan inovasi dibalik merek-merek Indonesia yang sukses menyandang gelar national champion.",
+    "Merumuskan lesson-learned dari perjalanan bisnis merek-merek Indonesia hingga menjadi national champion.",
   ],
   cases: [
     "Eiger", "Sasa", "Indomie", "Paragon", "Summarecon", "ecoCare", "Martha Tilaar Group", "Alfamart",
@@ -233,48 +284,7 @@ export const BOOK = {
   ],
 };
 
-// ---------------------------------------------------------------- Archive
-
-export const IBF_ABOUT = [
-  "Indonesia Brand Forum diselenggarakan pertama kali pada tahun 2013 sebagai bentuk kepedulian pada pengembangan brand-brand Indonesia.",
-  "Event tahunan ini mengusung konsep yang unik karena menggabungkan conference, riset dan penulisan buku, dan awarding.",
-  "Setiap tahun IBF menghadirkan topik-topik kajian yang baru dan inovatif berdasarkan riset dan kajian mendalam mengenai strategi brand dan praktik terbaik branding di Indonesia.",
-];
-
-export type Edition = { year: string; venue?: string; book: string; theme: string; summary: string };
-
-// Newest first. Venues and books as listed in the deck; 2026 is the current edition.
-export const EDITIONS: Edition[] = [
-  { year: "2026", venue: "MNC Conference Hall", book: "National Champion", theme: EVENT.subtitle, summary: "Brand-brand lokal yang berhasil memimpin pasar dengan memadukan keunggulan lokal dan kapabilitas bisnis kelas dunia." },
-  { year: "2024", venue: "Telkom Landmark Tower", book: "Elephant Learns Flamenco", theme: "BUMN Menuju Indonesia Emas 2045", summary: "Menggambarkan perjalanan transformasi BUMN selama lima tahun terakhir di bawah kepemimpinan Erick Thohir." },
-  { year: "2022", venue: "Balairung Kemenparekraf", book: "Brand Collab Advantage", theme: "Menang melalui kolaborasi, bukan kompetisi", summary: "Strategi serta best practice dari beberapa kolaborasi perusahaan di Indonesia yang memenuhi syarat sukses kolaborasi antar brand." },
-  { year: "2021", venue: "Pos Bloc", book: "The Rise of Cool+Agile Brands", theme: "Bagaimana merek Indonesia berhasil melewati disrupsi digital, milenial, dan pandemi", summary: "Membahas generasi baru brand di Indonesia yang piawai merespons perubahan dan mumpuni melakukan transformasi digital." },
-  { year: "2016", venue: "Hotel Grand Hyatt", book: "2G Challenges", theme: "Branding Family Business for the Nation, Lestari dari Generasi ke Generasi", summary: "Buku pertama di Indonesia yang mengungkap tantangan para pemimpin generasi kedua perusahaan keluarga, dengan kasus perusahaan-perusahaan keluarga papan atas di Indonesia." },
-  { year: "2015", venue: "Balai Kartini", book: "Global Chaser", theme: "Merek Indonesia Perkasa di Pentas Dunia", summary: "Strategi perusahaan dan merek Indonesia yang telah sukses menembus dan membangun daya saing di pasar global." },
-  { year: "2013", venue: "JCC", book: "Beat the Giant", theme: "Kebangkitan Nasional Kedua, Kebangkitan Merek Indonesia", summary: "Strategi merek lokal dan nasional dalam menghadapi merek global dan menjadi tuan rumah di negeri sendiri." },
-];
-
-const categoryCount = CATEGORY_GROUPS.reduce((n, g) => n + g.items.length, 0);
-const winnerCount = new Set(CATEGORY_GROUPS.flatMap((g) => g.items.flatMap((c) => c.winners))).size;
-
-export const STATS = [
-  { value: "2013", label: "IBF pertama digelar" },
-  { value: String(EDITIONS.length), label: "buku riset diterbitkan" },
-  { value: String(categoryCount), label: "kategori award" },
-  { value: String(JUDGES.length), label: "juri dari industri dan media" },
-];
-
-export const TICKER = [
-  "Sejak 2013",
-  `${winnerCount} brand pemenang`,
-  `${categoryCount} kategori`,
-  `${JUDGES.length} juri`,
-  `${SPEAKERS.length} pembicara`,
-  "Buku National Champion",
-  EVENT.dateShort,
-  EVENT.venue,
-];
-// ---------------------------------------------------------------- Tickets (not in the deck)
+// ---------------------------------------------------------------- Registration (not in the deck)
 
 export type TierId = "early" | "regular" | "corporate";
 
@@ -310,10 +320,10 @@ export const SPONSOR_PACKAGES = [
 ];
 
 export const FAQS = [
-  { q: "Kapan dan di mana IBF 2026 digelar?", a: `${EVENT.date} di ${EVENT.venue}, ${EVENT.city}. Rangkaian acara: keynote, introduction National Champion, peluncuran buku, National Champion Brand Award 2026, dan dua sesi konferensi hingga 17.25 WIB.` },
-  { q: "Bagaimana cara mendaftar?", a: "Pilih tiket di halaman Tiket, isi data, lalu bayar dengan QRIS, virtual account, e-wallet, atau kartu. E-ticket berisi QR code langsung dikirim ke email dan WhatsApp Anda." },
+  { q: "Kapan dan di mana IBF 2026 digelar?", a: `${EVENT.date} di ${EVENT.venue}, ${EVENT.city}. Rangkaian acara: keynote speech, introduction National Champion, book launching, National Champion Brand Award 2026, dan dua sesi konferensi hingga 17.25 WIB.` },
+  { q: "Bagaimana cara mendaftar?", a: "Pilih tiket di halaman Daftar, isi data, lalu bayar dengan QRIS, virtual account, e-wallet, atau kartu. E-ticket berisi QR code langsung dikirim ke email dan WhatsApp Anda." },
   { q: "Apakah peserta mendapat buku National Champion?", a: "[Konfirmasi apakah buku termasuk dalam tiket]" },
-  { q: "Apakah perusahaan bisa meminta invoice?", a: "Bisa. Pilih paket Corporate atau centang opsi invoice perusahaan saat checkout." },
+  { q: "Apakah perusahaan bisa meminta invoice?", a: "Bisa. Pilih paket Corporate atau centang opsi invoice perusahaan saat pendaftaran." },
   { q: "Apakah acara disiarkan?", a: "[Informasi siaran di iNews / SindoNews TV]" },
 ];
 

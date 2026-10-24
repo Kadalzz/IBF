@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Spotlight from "@/components/Spotlight";
-import { Arrow, ButtonLink, Container, Display, Kicker, SectionHead, delay } from "@/components/ui";
+import { RegisterCta } from "@/components/sections";
+import { Arrow, Container, Divider, GreenSlide, PaperSlide, SlideTitle, delay } from "@/components/ui";
 import { EVENT, ORGANIZERS, SPONSOR_PACKAGES, whatsappUrl } from "@/lib/data";
 import SponsorForm from "./SponsorForm";
 
@@ -12,87 +12,63 @@ export const metadata: Metadata = {
 export default function SponsorPage() {
   return (
     <>
-      <Spotlight>
-        <Container className="grid gap-12 pb-24 pt-16 lg:grid-cols-[1.4fr_1fr] lg:items-end">
-          <div>
-            <Kicker className="mb-5">Partner · {EVENT.edition}</Kicker>
-            <Display as="h1" className="text-[clamp(64px,9vw,140px)]">
-              Bersama para<br />
-              <span className="text-yellow">tuan rumah</span>
-            </Display>
-          </div>
-          <div data-reveal className="flex flex-col gap-4">
-            <p className="text-lg text-sage">
-              Tampil di panggung yang mempertemukan brand-brand pemimpin pasar Indonesia, para menteri, CEO, dan jaringan media iNews Media Group.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <ButtonLink href="#proposal">
-                Minta proposal <Arrow />
-              </ButtonLink>
-              <ButtonLink href="#" variant="ghost">
-                Unduh deck
-              </ButtonLink>
-            </div>
-          </div>
-        </Container>
-      </Spotlight>
+      <Divider word="Partner" />
 
-      <Container className="py-24">
-        <Kicker className="mb-6">Diselenggarakan oleh</Kicker>
-        <ul className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+      <PaperSlide id="organizers">
+        <SlideTitle word="Organizers" className="mb-4" />
+        <p data-reveal className="mb-10 max-w-[760px] font-serif text-lg text-body">
+          National Champion Brand Award 2026 diselenggarakan oleh Inventure bersama iNews Media Group.
+        </p>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {ORGANIZERS.map((o, i) => (
-            <li key={o} data-reveal style={delay(i * 80)} className="flex h-36 items-center justify-center bg-night p-6 text-center font-display text-3xl uppercase transition-colors duration-500 hover:bg-deep hover:text-yellow">
+            <li
+              key={o}
+              data-reveal="scale"
+              style={delay(i * 90)}
+              className="flex h-32 items-center justify-center rounded-2xl bg-white p-6 text-center font-display text-2xl font-extrabold text-forest shadow-[0_6px_16px_rgb(0_0_0/0.08)]"
+            >
               {o}
             </li>
           ))}
         </ul>
-      </Container>
+      </PaperSlide>
 
-      <section className="border-t border-line">
-        <Container className="py-28">
-          <SectionHead kicker="Paket kemitraan" title={<>Pilih<br /><span className="text-yellow">panggung Anda</span></>} />
-          <div className="grid gap-5 md:grid-cols-3">
-            {SPONSOR_PACKAGES.map((p, i) => (
-              <div
-                key={p.name}
-                data-reveal
-                style={delay(i * 120)}
-                className={`flex flex-col gap-6 rounded-3xl p-8 transition-transform duration-500 ease-stage hover:-translate-y-2 ${
-                  p.featured ? "bg-yellow text-night" : "border border-line"
-                }`}
-              >
-                <div className="flex items-baseline justify-between">
-                  <h3 className="font-display text-5xl uppercase leading-none">{p.name}</h3>
-                  <span className="font-display text-2xl opacity-60">0{i + 1}</span>
-                </div>
-                <ul className="flex flex-1 flex-col gap-2 text-[15px]">
-                  {p.benefits.map((b) => (
-                    <li key={b} className={`border-t pt-2 ${p.featured ? "border-night/15" : "border-line"}`}>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#proposal"
-                  className={`group rounded-full py-3.5 text-center font-bold ${p.featured ? "bg-night text-yellow" : "border border-cream/40"}`}
-                >
-                  Pilih {p.name} <Arrow />
-                </a>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
+      <PaperSlide id="packages" className="!bg-white">
+        <SlideTitle word="Packages" className="mb-4" />
+        <p data-reveal className="mb-10 font-serif text-lg text-body">Semua paket bisa disesuaikan. Detail harga ada di proposal.</p>
+        <div className="grid gap-6 md:grid-cols-3">
+          {SPONSOR_PACKAGES.map((p, i) => (
+            <div
+              key={p.name}
+              data-reveal
+              style={delay(i * 120)}
+              className={`flex flex-col gap-5 overflow-hidden rounded-2xl shadow-[0_8px_20px_rgb(0_0_0/0.12)] transition-transform duration-500 ease-stage hover:-translate-y-2 ${
+                p.featured ? "bg-forest text-white" : "bg-paper"
+              }`}
+            >
+              <span className={`px-6 py-4 font-cond text-3xl font-bold ${p.featured ? "bg-gradient-to-r from-orange to-[#f8e33b] text-forest" : "bg-gradient-to-r from-navy to-teal text-white"}`}>
+                {p.name}
+              </span>
+              <ul className="flex flex-1 list-disc flex-col gap-2 px-6 pl-11 font-serif text-[15px]">
+                {p.benefits.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+              <a href="#proposal" className={`group mx-6 mb-6 rounded-full py-3 text-center font-display font-bold ${p.featured ? "bg-yellow text-night" : "border border-forest text-forest"}`}>
+                Pilih {p.name} <Arrow />
+              </a>
+            </div>
+          ))}
+        </div>
+      </PaperSlide>
 
-      <section className="motif border-t border-line bg-forest">
-        <Container className="grid gap-12 py-28 lg:grid-cols-[2fr_3fr]">
-          <div id="proposal" data-reveal className="flex scroll-mt-28 flex-col gap-4">
-            <Kicker>Proposal</Kicker>
-            <Display className="text-[clamp(56px,6vw,96px)]">
-              Mari<br />
-              <span className="text-yellow">bicara</span>
-            </Display>
-            <p className="text-lg text-sage">Tim partnership membalas dalam 1 hari kerja dengan proposal dan ketersediaan paket.</p>
+      <GreenSlide id="proposal">
+        <Container className="grid gap-12 py-24 lg:grid-cols-[2fr_3fr]">
+          <div data-reveal className="flex flex-col gap-4">
+            <h2 className="font-display text-[clamp(36px,5vw,64px)] font-extrabold uppercase leading-none">
+              Minta <span className="text-lime">proposal</span>
+            </h2>
+            <p className="text-lg text-white/85">Tim partnership membalas dalam 1 hari kerja dengan proposal dan ketersediaan paket.</p>
             <p>
               Lebih cepat lewat{" "}
               <a href={whatsappUrl("Halo, saya tertarik menjadi partner IBF 2026")} className="group font-semibold">
@@ -100,11 +76,13 @@ export default function SponsorPage() {
               </a>
             </p>
           </div>
-          <div data-reveal style={delay(150)} className="rounded-3xl bg-night/70 p-6 sm:p-8">
+          <div data-reveal style={delay(150)} className="rounded-3xl bg-night/40 p-6 sm:p-8">
             <SponsorForm />
           </div>
         </Container>
-      </section>
+      </GreenSlide>
+
+      <RegisterCta />
     </>
   );
 }

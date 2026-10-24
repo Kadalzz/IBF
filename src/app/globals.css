@@ -1,34 +1,55 @@
 @import "tailwindcss";
 
-/* Colours from the IBF 2026 "National Champion" deck: deep green ground, yellow highlight,
-   IBF red, mint and teal accents. Layout and type follow the "Panggung" concept. */
+/* Visual language of the IBF 2026 "National Champion" deck:
+   - content slides: light grey paper, "THE" in black + the second word in deck green (Poppins ExtraBold),
+     serif body text, a teal-to-navy wave in the bottom-right corner;
+   - section and cover slides: deck green with a faint motif and bright yellow display type;
+   - accents: coral / orange / leaf (programs), sun / mint / coral (criteria), navy-to-teal (tables, judges). */
 @theme {
   --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-display: var(--font-poppins), system-ui, sans-serif;
+  --font-serif: var(--font-lora), Georgia, serif;
+  --font-cond: var(--font-barlow), "Arial Narrow", sans-serif;
 
-  --color-night: #05271b;
+  /* Paper slides */
+  --color-paper: #ededed;
+  --color-ink: #111111;
+  --color-body: #333333;
   --color-forest: #0b6142;
+
+  /* Green slides */
+  --color-night: #05271b;
   --color-deep: #0a4430;
-  --color-yellow: #fff200;
-  --color-red: #e8140c;
-  --color-mint: #6ed3a9;
-  --color-teal: #1a8f87;
   --color-cream: #f4f7f2;
-  --color-sage: #a6c3b4;
-  --color-line: rgb(244 247 242 / 0.14);
+  --color-sage: #b4cfc1;
+  --color-line: rgb(244 247 242 / 0.16);
+  --color-yellow: #fff200;
+  --color-lime: #e8f51e;
+
+  /* Accents */
+  --color-red: #ef1c1c;
+  --color-coral: #dc4a4e;
+  --color-orange: #f7a72c;
+  --color-leaf: #62c98a;
+  --color-sun: #fbc52d;
+  --color-mint: #5ec9a0;
+  --color-mint-soft: #8ddfc3;
+  --color-gold: #d8b62e;
+  --color-teal: #2b9c9b;
+  --color-navy: #1d5a8f;
 
   --ease-stage: cubic-bezier(0.2, 0.7, 0.1, 1);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px;
-  background: var(--color-night);
+  scroll-padding-top: 88px;
+  background: var(--color-paper);
 }
 
 body {
-  background: var(--color-night);
-  color: var(--color-cream);
+  background: var(--color-paper);
+  color: var(--color-ink);
   overflow-x: clip;
 }
 
@@ -38,21 +59,22 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-yellow);
+  outline: 2px solid var(--color-orange);
   outline-offset: 3px;
 }
 
-/* Subtle four-petal motif from the deck, used as a texture on green panels. */
+/* Faint four-petal motif on green slides. */
 .motif {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23f4f7f2' stroke-opacity='0.06' stroke-width='1.2'%3E%3Cpath d='M36 6c8 8 8 22 0 30-8-8-8-22 0-30zM36 66c-8-8-8-22 0-30 8 8 8 22 0 30zM6 36c8-8 22-8 30 0-8 8-22 8-30 0zM66 36c-8 8-22 8-30 0 8-8 22-8 30 0z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23000' stroke-opacity='0.09' stroke-width='1.4'%3E%3Cpath d='M60 12c12 12 12 34 0 46-12-12-12-34 0-46zM60 108c-12-12-12-34 0-46 12 12 12 34 0 46zM12 60c12-12 34-12 46 0-12 12-34 12-46 0zM108 60c-12 12-34 12-46 0 12-12 34-12 46 0z'/%3E%3Ccircle cx='60' cy='60' r='4'/%3E%3Ccircle cx='0' cy='0' r='22'/%3E%3Ccircle cx='120' cy='120' r='22'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Stage spotlight that follows the pointer (see components/Spotlight.tsx). */
-.spotlight {
-  background:
-    radial-gradient(ellipse 55% 65% at var(--mx, 72%) var(--my, 0%), rgb(255 242 0 / 0.16), transparent 70%),
-    var(--color-forest);
-  transition: background-position 0.2s;
+/* Yellow display word with the deck's offset white outline (AWARDING / CONFERENCE / BOOK slides). */
+.outline-shadow {
+  text-shadow:
+    5px 5px 0 var(--color-forest),
+    6px 6px 0 #fff,
+    6px 4px 0 #fff,
+    4px 6px 0 #fff;
 }
 
 /* Page enter: every route fades up when it mounts (see app/template.tsx). */
@@ -66,7 +88,7 @@ body {
   animation: page-enter 0.6s var(--ease-stage) both;
 }
 
-/* Hero type: each line rises out of its own clipped box on load. */
+/* Cover type: each line rises out of its own clipped box on load. */
 @keyframes rise {
   from {
     transform: translateY(110%);
@@ -79,7 +101,7 @@ body {
 .rise-line > span {
   display: inline-block;
   animation: rise 1.1s var(--ease-stage) both;
-  animation-delay: calc(var(--i, 0) * 120ms + 100ms);
+  animation-delay: calc(var(--i, 0) * 140ms + 100ms);
 }
 
 /* Slow spin for the four-petal mark. */
@@ -95,40 +117,21 @@ body {
 /* Scroll reveal: hidden only once JS is known to run, so content never stays invisible. */
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(28px);
   transition:
-    opacity 0.9s var(--ease-stage),
-    transform 0.9s var(--ease-stage);
+    opacity 0.8s var(--ease-stage),
+    transform 0.8s var(--ease-stage);
   transition-delay: var(--delay, 0ms);
 }
 .js [data-reveal].is-visible {
   opacity: 1;
   transform: none;
 }
-.js [data-reveal="rule"] {
-  opacity: 1;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1);
-}
-.js [data-reveal="rule"].is-visible {
-  transform: none;
-}
 .js [data-reveal="scale"] {
-  transform: scale(0.92);
+  transform: scale(0.94);
 }
-
-/* Yellow ticker band. */
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-.marquee-track {
-  animation: marquee 35s linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
+.js [data-reveal="left"] {
+  transform: translateX(-32px);
 }
 
 /* Buttons: a second colour slides up from below on hover. */
@@ -142,7 +145,7 @@ body {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--fill, var(--color-cream));
+  background: var(--fill, #fff);
   transform: translateY(101%);
   transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1);
 }
@@ -177,7 +180,6 @@ body {
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
-  .marquee-track,
   .spin-slow {
     animation: none;
   }

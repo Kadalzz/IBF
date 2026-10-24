@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { GreenSlide } from "@/components/ui";
 import Checkout from "./Checkout";
 
 export const metadata: Metadata = {
@@ -9,8 +10,10 @@ export const metadata: Metadata = {
 
 export default function TiketPage() {
   return (
-    <Suspense fallback={<div className="min-h-[600px]" aria-busy="true" />}>
-      <Checkout />
-    </Suspense>
+    <GreenSlide className="text-cream">
+      <Suspense fallback={<div className="min-h-[600px]" aria-busy="true" />}>
+        <Checkout />
+      </Suspense>
+    </GreenSlide>
   );
 }

@@ -28,19 +28,19 @@ export default function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-[transform,background-color,border-color] duration-500 ease-stage ${
+      className={`sticky top-0 z-40 bg-forest text-white transition-[transform,box-shadow] duration-500 ease-stage ${
         hidden && !open ? "-translate-y-full" : ""
-      } ${scrolled || open ? "border-b border-line bg-night/90 backdrop-blur" : "border-b border-transparent bg-forest"}`}
+      } ${scrolled || open ? "shadow-[0_6px_20px_rgb(0_0_0/0.18)]" : ""}`}
     >
-      <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-6 px-4 py-3 sm:px-8">
+      <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-6 px-4 py-2.5 sm:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label="Indonesia Brand Forum 2026, beranda">
-          <IbfLogo size={48} />
-          <span className="hidden font-display text-xl uppercase leading-none tracking-wide sm:block">
-            National<br />
-            <span className="text-yellow">Champion</span>
+          <IbfLogo size={50} />
+          <span className="hidden leading-none sm:block">
+            <span className="block font-serif text-xl font-bold">National</span>
+            <span className="block font-display text-sm font-extrabold tracking-[0.12em] text-yellow">CHAMPION</span>
           </span>
         </Link>
-        <nav aria-label="Menu utama" className="hidden gap-8 lg:flex">
+        <nav aria-label="Menu utama" className="hidden gap-7 lg:flex">
           {NAV.map((item) => {
             const active = pathname === item.href;
             return (
@@ -48,7 +48,7 @@ export default function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`link-draw py-1 text-[15px] font-medium ${active ? "text-yellow" : "text-cream"}`}
+                className={`link-draw py-1 font-display text-[15px] font-semibold ${active ? "text-yellow" : "text-white"}`}
               >
                 {item.label}
               </Link>
@@ -56,10 +56,7 @@ export default function SiteHeader() {
           })}
         </nav>
         <div className="flex items-center gap-2">
-          <Link
-            href="/tiket"
-            className="btn-fill hidden rounded-full bg-yellow px-6 py-3 text-[15px] font-bold text-night sm:inline-block"
-          >
+          <Link href="/tiket" className="btn-fill hidden rounded-full bg-yellow px-6 py-2.5 font-display text-[15px] font-bold text-night [--fill:#ffffff] sm:inline-block">
             Daftar
           </Link>
           <button
@@ -76,9 +73,7 @@ export default function SiteHeader() {
       </div>
       <div
         id="menu-mobile"
-        className={`grid overflow-hidden transition-[grid-template-rows] duration-500 ease-stage lg:hidden ${
-          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
+        className={`grid overflow-hidden transition-[grid-template-rows] duration-500 ease-stage lg:hidden ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
       >
         <nav aria-label="Menu utama" className="min-h-0 px-4 sm:px-8">
           {NAV.map((item, i) => (
@@ -87,9 +82,9 @@ export default function SiteHeader() {
               href={item.href}
               tabIndex={open ? undefined : -1}
               onClick={() => setOpen(false)}
-              className="flex items-baseline gap-4 border-b border-line py-4 font-display text-4xl uppercase"
+              className="flex items-baseline gap-4 border-b border-white/15 py-4 font-display text-2xl font-extrabold uppercase"
             >
-              <span className="font-sans text-xs font-bold text-yellow">0{i + 1}</span>
+              <span className="text-sm text-yellow">0{i + 1}</span>
               {item.label}
             </Link>
           ))}
@@ -97,7 +92,7 @@ export default function SiteHeader() {
             href="/tiket"
             tabIndex={open ? undefined : -1}
             onClick={() => setOpen(false)}
-            className="my-5 block rounded-full bg-yellow py-4 text-center font-bold text-night"
+            className="my-5 block rounded-full bg-yellow py-3.5 text-center font-display font-bold text-night"
           >
             Daftar sekarang
           </Link>
