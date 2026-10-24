@@ -1,94 +1,110 @@
 import type { Metadata } from "next";
-import { ButtonLink, Container, Eyebrow, SponsorGrid } from "@/components/ui";
-import { AUDIENCE, SPONSORS_2024, SPONSOR_PACKAGES, whatsappUrl } from "@/lib/data";
+import Spotlight from "@/components/Spotlight";
+import { Arrow, ButtonLink, Container, Display, Kicker, SectionHead, delay } from "@/components/ui";
+import { EVENT, ORGANIZERS, SPONSOR_PACKAGES, whatsappUrl } from "@/lib/data";
 import SponsorForm from "./SponsorForm";
 
 export const metadata: Metadata = {
-  title: "Sponsor",
-  description: "Paket sponsor Indonesia Brand Forum 2026 dan formulir permintaan proposal.",
+  title: "Partner",
+  description: `Penyelenggara dan paket kemitraan ${EVENT.edition} ${EVENT.title}.`,
 };
 
 export default function SponsorPage() {
   return (
     <>
-      <section className="bg-navy text-white">
-        <Container className="flex flex-wrap items-end gap-12 py-22">
-          <div className="flex min-w-0 flex-[2_1_520px] flex-col gap-5">
-            <Eyebrow light>SPONSOR DAN PARTNER</Eyebrow>
-            <h1 className="text-4xl font-extrabold leading-[1.06] tracking-tight sm:text-[58px]">
-              Tempatkan brand Anda di depan pengambil keputusan Indonesia
-            </h1>
-            <p className="max-w-[620px] text-lg text-slate-300">
-              IBF mempertemukan pemimpin BUMN, korporasi, dan pemasar senior selama lebih dari satu dekade.
+      <Spotlight>
+        <Container className="grid gap-12 pb-24 pt-16 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+          <div>
+            <Kicker className="mb-5">Partner · {EVENT.edition}</Kicker>
+            <Display as="h1" className="text-[clamp(64px,9vw,140px)]">
+              Bersama para<br />
+              <span className="text-yellow">tuan rumah</span>
+            </Display>
+          </div>
+          <div data-reveal className="flex flex-col gap-4">
+            <p className="text-lg text-sage">
+              Tampil di panggung yang mempertemukan brand-brand pemimpin pasar Indonesia, para menteri, CEO, dan jaringan media iNews Media Group.
             </p>
-          </div>
-          <div className="flex flex-[1_1_280px] flex-wrap gap-3">
-            <ButtonLink href="#proposal" variant="gold">Minta proposal</ButtonLink>
-            <ButtonLink href="#" variant="ghostLight">Unduh deck (PDF)</ButtonLink>
-          </div>
-        </Container>
-      </section>
-
-      <Container className="pb-12 pt-22">
-        <h2 className="mb-8 text-4xl font-extrabold tracking-tight">Siapa yang hadir</h2>
-        <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
-          {AUDIENCE.map((a) => (
-            <div key={a.label} className="rounded-[20px] bg-soft p-7">
-              <div className="text-4xl font-extrabold text-brand">{a.value}</div>
-              <div className="text-[15px] text-muted">{a.label}</div>
-            </div>
-          ))}
-        </div>
-      </Container>
-
-      <Container className="pb-22 pt-12">
-        <h2 className="mb-2 text-4xl font-extrabold tracking-tight">Paket sponsor</h2>
-        <p className="mb-8 text-[17px] text-muted">Semua paket bisa disesuaikan. Detail harga ada di proposal.</p>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
-          {SPONSOR_PACKAGES.map((p) => (
-            <div
-              key={p.name}
-              className={`flex flex-col gap-4 rounded-[20px] p-8 ${p.featured ? "border-2 border-brand" : "border border-line"}`}
-            >
-              <h3 className="text-[22px] font-extrabold">{p.name}</h3>
-              <ul className="flex flex-1 list-disc flex-col gap-2 pl-5 text-[15px] text-slate-700">
-                {p.benefits.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
-              <ButtonLink href="#proposal" variant={p.featured ? "primary" : "outline"}>
-                Pilih {p.name}
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink href="#proposal">
+                Minta proposal <Arrow />
+              </ButtonLink>
+              <ButtonLink href="#" variant="ghost">
+                Unduh deck
               </ButtonLink>
             </div>
+          </div>
+        </Container>
+      </Spotlight>
+
+      <Container className="py-24">
+        <Kicker className="mb-6">Diselenggarakan oleh</Kicker>
+        <ul className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+          {ORGANIZERS.map((o, i) => (
+            <li key={o} data-reveal style={delay(i * 80)} className="flex h-36 items-center justify-center bg-night p-6 text-center font-display text-3xl uppercase transition-colors duration-500 hover:bg-deep hover:text-yellow">
+              {o}
+            </li>
           ))}
-        </div>
+        </ul>
       </Container>
 
-      <section className="bg-soft">
-        <Container className="py-20">
-          <h2 className="mb-7 text-[28px] font-extrabold">Partner IBF 2024</h2>
-          <SponsorGrid names={SPONSORS_2024} onSoft />
+      <section className="border-t border-line">
+        <Container className="py-28">
+          <SectionHead kicker="Paket kemitraan" title={<>Pilih<br /><span className="text-yellow">panggung Anda</span></>} />
+          <div className="grid gap-5 md:grid-cols-3">
+            {SPONSOR_PACKAGES.map((p, i) => (
+              <div
+                key={p.name}
+                data-reveal
+                style={delay(i * 120)}
+                className={`flex flex-col gap-6 rounded-3xl p-8 transition-transform duration-500 ease-stage hover:-translate-y-2 ${
+                  p.featured ? "bg-yellow text-night" : "border border-line"
+                }`}
+              >
+                <div className="flex items-baseline justify-between">
+                  <h3 className="font-display text-5xl uppercase leading-none">{p.name}</h3>
+                  <span className="font-display text-2xl opacity-60">0{i + 1}</span>
+                </div>
+                <ul className="flex flex-1 flex-col gap-2 text-[15px]">
+                  {p.benefits.map((b) => (
+                    <li key={b} className={`border-t pt-2 ${p.featured ? "border-night/15" : "border-line"}`}>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#proposal"
+                  className={`group rounded-full py-3.5 text-center font-bold ${p.featured ? "bg-night text-yellow" : "border border-cream/40"}`}
+                >
+                  Pilih {p.name} <Arrow />
+                </a>
+              </div>
+            ))}
+          </div>
         </Container>
       </section>
 
-      <Container className="flex flex-wrap gap-12 pb-30 pt-22">
-        <div id="proposal" className="flex min-w-0 flex-[1_1_320px] flex-col gap-4">
-          <h2 className="text-4xl font-extrabold leading-tight tracking-tight">Minta proposal sponsor</h2>
-          <p className="text-[17px] text-muted">
-            Tim partnership membalas dalam 1 hari kerja dengan proposal dan ketersediaan paket.
-          </p>
-          <p className="text-base">
-            Lebih cepat lewat{" "}
-            <a href={whatsappUrl("Halo, saya tertarik menjadi sponsor IBF 2026")} className="font-bold text-brand hover:underline">
-              WhatsApp
-            </a>
-            .
-          </p>
-        </div>
-        <div className="min-w-0 flex-[1.4_1_480px] rounded-[20px] border border-line p-6 sm:p-8">
-          <SponsorForm />
-        </div>
-      </Container>
+      <section className="motif border-t border-line bg-forest">
+        <Container className="grid gap-12 py-28 lg:grid-cols-[2fr_3fr]">
+          <div id="proposal" data-reveal className="flex scroll-mt-28 flex-col gap-4">
+            <Kicker>Proposal</Kicker>
+            <Display className="text-[clamp(56px,6vw,96px)]">
+              Mari<br />
+              <span className="text-yellow">bicara</span>
+            </Display>
+            <p className="text-lg text-sage">Tim partnership membalas dalam 1 hari kerja dengan proposal dan ketersediaan paket.</p>
+            <p>
+              Lebih cepat lewat{" "}
+              <a href={whatsappUrl("Halo, saya tertarik menjadi partner IBF 2026")} className="group font-semibold">
+                <span className="link-draw">WhatsApp</span> <Arrow />
+              </a>
+            </p>
+          </div>
+          <div data-reveal style={delay(150)} className="rounded-3xl bg-night/70 p-6 sm:p-8">
+            <SponsorForm />
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

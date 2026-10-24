@@ -24,20 +24,6 @@ export const CloseIcon = ({ size = 24, className }: IconProps) => (
   </svg>
 );
 
-export const CalendarIcon = ({ size = 22, className }: IconProps) => (
-  <svg {...base(size)} className={className}>
-    <rect x="3" y="5" width="18" height="16" rx="2" />
-    <path d="M3 10h18M8 3v4M16 3v4" />
-  </svg>
-);
-
-export const PinIcon = ({ size = 22, className }: IconProps) => (
-  <svg {...base(size)} className={className}>
-    <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
-    <circle cx="12" cy="10" r="2.5" />
-  </svg>
-);
-
 export const ChatIcon = ({ size = 26, className }: IconProps) => (
   <svg {...base(size)} className={className}>
     <path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z" />

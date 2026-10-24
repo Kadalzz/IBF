@@ -7,9 +7,12 @@ export default function WhatsAppButton() {
     <a
       href={whatsappUrl("Halo, saya mau tanya tentang IBF 2026")}
       aria-label="Tanya lewat WhatsApp"
-      className="fixed bottom-6 right-6 z-30 hidden h-14 w-14 items-center justify-center rounded-full bg-brand text-white shadow-[0_6px_20px_rgba(11,20,55,0.3)] hover:bg-navy md:flex"
+      className="group fixed bottom-6 right-6 z-30 hidden h-14 items-center gap-0 overflow-hidden rounded-full bg-yellow px-4 text-night shadow-[0_8px_30px_rgb(0_0_0/0.35)] transition-[gap] duration-300 hover:gap-2.5 md:flex"
     >
-      <ChatIcon />
+      <ChatIcon size={24} />
+      <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold transition-[max-width] duration-500 ease-stage group-hover:max-w-[140px]">
+        Tanya tim IBF
+      </span>
     </a>
   );
 }

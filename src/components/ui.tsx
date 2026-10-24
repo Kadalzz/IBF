@@ -1,59 +1,82 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { formatRupiah, TIERS, whatsappUrl } from "@/lib/data";
 import { ChatIcon } from "./icons";
 
-export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`mx-auto max-w-[1200px] px-4 sm:px-6 ${className}`}>{children}</div>;
-}
+// Stagger for [data-reveal] elements: `style={delay(120)}`.
+export const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 
-export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
+export const TONE = {
+  yellow: { bg: "bg-yellow", text: "text-yellow", border: "border-yellow", ink: "text-night" },
+  mint: { bg: "bg-mint", text: "text-mint", border: "border-mint", ink: "text-night" },
+  red: { bg: "bg-red", text: "text-red", border: "border-red", ink: "text-white" },
+  white: { bg: "bg-cream", text: "text-cream", border: "border-cream", ink: "text-night" },
+} as const;
+
+export type Tone = keyof typeof TONE;
+
+export function Container({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {
   return (
-    <p className={`mb-2 text-sm font-bold tracking-wider ${light ? "text-gold" : "text-brand"}`}>
+    <div id={id} className={`mx-auto max-w-[1320px] px-4 sm:px-8 ${className}`}>
       {children}
-    </p>
+    </div>
   );
 }
 
-export function SectionTitle({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return (
-    <h2 className={`text-3xl font-extrabold leading-tight tracking-tight sm:text-[40px] ${className}`}>
-      {children}
-    </h2>
-  );
+export function Kicker({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <p className={`text-xs font-bold uppercase tracking-[0.2em] text-yellow ${className}`}>{children}</p>;
 }
 
-export function Placeholder({
-  label,
+// Big condensed uppercase heading, the signature of the "Panggung" concept.
+export function Display({
+  children,
+  as: Tag = "h2",
   className = "",
-  dark = false,
 }: {
-  label: string;
+  children: ReactNode;
+  as?: "h1" | "h2" | "h3";
   className?: string;
-  dark?: boolean;
 }) {
   return (
-    <div
-      className={`flex items-center justify-center rounded-2xl text-center text-sm ${
-        dark ? "bg-navy-2 text-slate-400" : "bg-placeholder text-slate-500"
-      } ${className}`}
-    >
-      [{label}]
+    <Tag data-reveal className={`font-display font-normal uppercase leading-[0.9] ${className}`}>
+      {children}
+    </Tag>
+  );
+}
+
+export function SectionHead({ kicker, title, action }: { kicker?: string; title: ReactNode; action?: ReactNode }) {
+  return (
+    <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+      <div>
+        {kicker && <Kicker className="mb-4">{kicker}</Kicker>}
+        <Display className="text-[clamp(52px,7vw,104px)]">{title}</Display>
+      </div>
+      {action}
+    </div>
+  );
+}
+
+// Image slot; real photos render greyscale and turn to colour on hover.
+export function Photo({ label, className = "" }: { label: string; className?: string }) {
+  return (
+    <div className={`overflow-hidden bg-deep ${className}`}>
+      <div className="flex h-full w-full items-center justify-center p-4 text-center text-[13px] text-sage/70 grayscale transition duration-700 ease-stage group-hover:scale-105 group-hover:grayscale-0">
+        [{label}]
+      </div>
     </div>
   );
 }
 
 const buttonStyles = {
-  primary: "bg-brand text-white hover:bg-navy",
-  gold: "bg-gold text-ink hover:brightness-95",
-  outline: "border border-brand text-brand hover:bg-chip",
-  ghostLight: "border border-white/40 text-white hover:bg-white/10",
+  yellow: "bg-yellow text-night [--fill:var(--color-cream)]",
+  ghost: "border border-cream/40 text-cream hover:text-night transition-colors duration-300",
+  red: "bg-red text-white [--fill:var(--color-yellow)] hover:text-night transition-colors duration-300",
 };
 
 export function ButtonLink({
   href,
   children,
-  variant = "primary",
+  variant = "yellow",
   className = "",
 }: {
   href: string;
@@ -64,49 +87,58 @@ export function ButtonLink({
   return (
     <Link
       href={href}
-      className={`inline-block rounded-full px-7 py-3.5 text-center text-base font-bold ${buttonStyles[variant]} ${className}`}
+      className={`btn-fill group inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-bold ${buttonStyles[variant]} ${className}`}
     >
       {children}
     </Link>
   );
 }
 
-const lowestPrice = Math.min(...TIERS.map((t) => t.price));
-
-// Sticky purchase bar for phones, mirroring the mobile prototype.
-export function MobileBuyBar() {
+export function Arrow() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-2.5 border-t border-line bg-white px-4 pb-5 pt-3 md:hidden">
-      <a
-        href={whatsappUrl("Halo, saya mau tanya tentang IBF 2026")}
-        aria-label="Tanya lewat WhatsApp"
-        className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full border border-slate-300 text-brand"
-      >
-        <ChatIcon size={24} />
-      </a>
-      <Link
-        href="/tiket"
-        className="flex h-[52px] flex-1 items-center justify-center rounded-full bg-brand text-base font-bold text-white"
-      >
-        Beli Tiket · mulai {formatRupiah(lowestPrice)}
-      </Link>
-    </div>
+    <span aria-hidden="true" className="inline-block transition-transform duration-300 ease-stage group-hover:translate-x-1.5">
+      →
+    </span>
   );
 }
 
-export function SponsorGrid({ names, onSoft = false }: { names: string[]; onSoft?: boolean }) {
-  return (
-    <ul className="grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-4">
-      {names.map((name) => (
-        <li
-          key={name}
-          className={`flex h-[72px] items-center justify-center rounded-xl border border-line text-sm font-semibold text-muted ${
-            onSoft ? "bg-white" : ""
-          }`}
-        >
-          {name}
+export function Ticker({ items, label }: { items: string[]; label: string }) {
+  const row = (hidden: boolean) => (
+    <ul aria-hidden={hidden || undefined} className="flex shrink-0 items-center">
+      {items.map((item) => (
+        <li key={item} className="flex items-center">
+          <span className="px-6 font-display text-[30px] uppercase leading-none tracking-wide">{item}</span>
+          <span aria-hidden="true">★</span>
         </li>
       ))}
     </ul>
+  );
+  return (
+    <section aria-label={label} className="marquee overflow-hidden bg-yellow py-4 text-night">
+      <div className="marquee-track flex w-max">
+        {row(false)}
+        {row(true)}
+      </div>
+    </section>
+  );
+}
+
+const lowestPrice = Math.min(...TIERS.map((t) => t.price));
+
+// Sticky registration bar for phones.
+export function MobileBuyBar() {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-2 border-t border-line bg-night/95 px-3 pb-4 pt-3 backdrop-blur md:hidden">
+      <a
+        href={whatsappUrl("Halo, saya mau tanya tentang IBF 2026")}
+        aria-label="Tanya lewat WhatsApp"
+        className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full border border-cream/40"
+      >
+        <ChatIcon size={22} />
+      </a>
+      <Link href="/tiket" className="flex h-13 flex-1 items-center justify-center rounded-full bg-yellow font-bold text-night">
+        Daftar · mulai {formatRupiah(lowestPrice)}
+      </Link>
+    </div>
   );
 }

@@ -2,91 +2,107 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NAV } from "@/lib/data";
-import Logo from "./Logo";
+import { IbfLogo } from "./brand";
 import { CloseIcon, MenuIcon } from "./icons";
 
 export default function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Slides away while scrolling down, comes back as soon as the visitor scrolls up.
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 8);
+      setHidden(y > 240 && y > last);
+      last = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <>
-      <Link
-        href="/tiket"
-        className="block bg-gold px-4 py-2.5 text-center text-sm font-semibold text-ink hover:underline"
-      >
-        Tiket early-bird IBF 2026 sudah dibuka, kuota terbatas. Beli sekarang →
-      </Link>
-      <header className="sticky top-0 z-40 border-b border-line bg-white">
-        <div className="mx-auto flex max-w-[1200px] items-center gap-6 px-4 py-3 sm:px-6">
-          <Logo />
-          <nav aria-label="Menu utama" className="hidden flex-1 justify-center gap-1 lg:flex">
-            {NAV.map((item) => {
-              const active = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={
-                    "rounded-lg px-3.5 py-2.5 text-[15px] " +
-                    (active
-                      ? "bg-chip font-bold text-brand"
-                      : "font-medium text-slate-700 hover:bg-soft")
-                  }
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-          <div className="ml-auto flex items-center gap-2 lg:ml-0">
-            <Link
-              href="/tiket"
-              className="hidden rounded-full bg-brand px-5 py-3 text-[15px] font-bold text-white hover:bg-navy sm:inline-block"
-            >
-              Beli Tiket
-            </Link>
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-controls="menu-mobile"
-              aria-label={open ? "Tutup menu" : "Buka menu"}
-              className="flex h-11 w-11 items-center justify-center rounded-lg text-ink hover:bg-soft lg:hidden"
-            >
-              {open ? <CloseIcon /> : <MenuIcon />}
-            </button>
-          </div>
-        </div>
-        {open && (
-          <nav
-            id="menu-mobile"
-            aria-label="Menu utama"
-            className="border-t border-line px-4 pb-4 lg:hidden"
-          >
-            {NAV.map((item) => (
+    <header
+      className={`sticky top-0 z-40 transition-[transform,background-color,border-color] duration-500 ease-stage ${
+        hidden && !open ? "-translate-y-full" : ""
+      } ${scrolled || open ? "border-b border-line bg-night/90 backdrop-blur" : "border-b border-transparent bg-forest"}`}
+    >
+      <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-6 px-4 py-3 sm:px-8">
+        <Link href="/" className="flex items-center gap-3" aria-label="Indonesia Brand Forum 2026, beranda">
+          <IbfLogo size={48} />
+          <span className="hidden font-display text-xl uppercase leading-none tracking-wide sm:block">
+            National<br />
+            <span className="text-yellow">Champion</span>
+          </span>
+        </Link>
+        <nav aria-label="Menu utama" className="hidden gap-8 lg:flex">
+          {NAV.map((item) => {
+            const active = pathname === item.href;
+            return (
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={() => setOpen(false)}
-                className="block border-b border-slate-100 px-1 py-3.5 text-[17px] font-semibold text-ink"
+                aria-current={active ? "page" : undefined}
+                className={`link-draw py-1 text-[15px] font-medium ${active ? "text-yellow" : "text-cream"}`}
               >
                 {item.label}
               </Link>
-            ))}
+            );
+          })}
+        </nav>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/tiket"
+            className="btn-fill hidden rounded-full bg-yellow px-6 py-3 text-[15px] font-bold text-night sm:inline-block"
+          >
+            Daftar
+          </Link>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="menu-mobile"
+            aria-label={open ? "Tutup menu" : "Buka menu"}
+            className="flex h-11 w-11 items-center justify-center lg:hidden"
+          >
+            {open ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
+      </div>
+      <div
+        id="menu-mobile"
+        className={`grid overflow-hidden transition-[grid-template-rows] duration-500 ease-stage lg:hidden ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <nav aria-label="Menu utama" className="min-h-0 px-4 sm:px-8">
+          {NAV.map((item, i) => (
             <Link
-              href="/tiket"
+              key={item.href}
+              href={item.href}
+              tabIndex={open ? undefined : -1}
               onClick={() => setOpen(false)}
-              className="mt-4 block rounded-full bg-brand py-3.5 text-center font-bold text-white"
+              className="flex items-baseline gap-4 border-b border-line py-4 font-display text-4xl uppercase"
             >
-              Beli Tiket
+              <span className="font-sans text-xs font-bold text-yellow">0{i + 1}</span>
+              {item.label}
             </Link>
-          </nav>
-        )}
-      </header>
-    </>
+          ))}
+          <Link
+            href="/tiket"
+            tabIndex={open ? undefined : -1}
+            onClick={() => setOpen(false)}
+            className="my-5 block rounded-full bg-yellow py-4 text-center font-bold text-night"
+          >
+            Daftar sekarang
+          </Link>
+        </nav>
+      </div>
+    </header>
   );
 }
