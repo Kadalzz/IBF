@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prototype brandforum.id
 
-## Getting Started
+Prototype website baru Indonesia Brand Forum (Next.js 16 + Tailwind CSS 4). Semua halaman statis, belum terhubung ke CMS atau pembayaran.
 
-First, run the development server:
+| Halaman | Isi |
+| --- | --- |
+| `/` | Beranda: hero, angka, pembicara, agenda, tiket, partner, arsip, insight, newsletter |
+| `/event` | Agenda, pembicara, venue, FAQ |
+| `/tiket` | Checkout 4 langkah (simulasi, tanpa pembayaran sungguhan). `?tier=early\|regular\|corporate` memilih tiket awal |
+| `/sponsor` | Profil audiens, paket sponsor, form permintaan proposal |
+| `/arsip` | Edisi per tahun (`?edisi=2024`), liputan media, unduh e-book |
+
+## Menjalankan
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # cek sebelum deploy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Mengubah konten
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Semua teks, jadwal, pembicara, harga contoh, dan sponsor ada di `src/lib/data.ts`. Nilai dalam `[kurung siku]` masih placeholder. Isi `EVENT.startsAt` (mis. `"2026-12-10T08:30:00+07:00"`) agar hitung mundur berjalan.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Prototype memakai `robots: noindex` di `src/app/layout.tsx` supaya tidak terindeks Google; hapus saat website asli diluncurkan.
 
-## Learn More
+## Deploy ke Vercel
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Lewat GitHub:** push repo ini ke GitHub, lalu di vercel.com pilih *Add New → Project*, impor repo, dan klik *Deploy*. Pengaturan default sudah benar.
+- **Lewat CLI:** `npx vercel` (preview) lalu `npx vercel --prod`.
